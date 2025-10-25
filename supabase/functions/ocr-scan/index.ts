@@ -15,6 +15,12 @@ Deno.serve(async (req) => {
     
     if (!imageBase64) {
       throw new Error('No image provided');
+    }
+
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      throw new Error('LOVABLE_API_KEY not configured');
+    }
 
     // Use Lovable AI (Gemini 2.5 Flash) to extract product information from image
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
